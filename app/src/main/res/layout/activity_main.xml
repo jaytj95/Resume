@@ -11,6 +11,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/frag_holder"></FrameLayout>
+        android:id="@+id/frag_holder"
+        android:layout_below="@id/tool_bar"></FrameLayout>
 
 </RelativeLayout>

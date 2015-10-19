@@ -2,6 +2,7 @@ package com.jasonjohn.resume;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -16,9 +17,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.flaviofaria.kenburnsview.KenBurnsView;
-import com.nhaarman.listviewanimations.itemmanipulation.expandablelistitem.ExpandableListItemAdapter;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -43,7 +45,7 @@ public class WorkExperienceFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
 
     private ListView listView;
-    private ArrayList<String> listData;
+    private ArrayList<WorkExpObject> listData;
     private WorkExpAdapter listAdapter;
 
     /**
@@ -85,9 +87,25 @@ public class WorkExperienceFragment extends Fragment {
         listView = (ListView) view.findViewById(R.id.listview);
 
         listAdapter = new WorkExpAdapter(getActivity().getApplicationContext());
-
+        WorkExpObject autotrader = new WorkExpObject("Test Automation Developer", "Cox AutoTrader", R.drawable.work_autotrader);
+        WorkExpObject ncr = new WorkExpObject("Embedded Software Engineer", "NCR Corp.", R.drawable.work_ncr);
+        WorkExpObject harmonicvib = new WorkExpObject("Lead Android Dev", "Harmonic Vibration LLC.", R.drawable.work_harmonicvibration);
+        WorkExpObject techster = new WorkExpObject("Lead Android Dev", "Techster Solutions", R.drawable.work_techster);
+        WorkExpObject uga = new WorkExpObject("Undergraduate TA", "University of Georgia", R.drawable.work_uga);
+        listData = new ArrayList<>();
+        listData.addAll(Arrays.asList(autotrader, harmonicvib, ncr, techster, uga));
+        listAdapter.addAll(listData);
         listView.setAdapter(listAdapter);
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                WorkExpObject weo = listAdapter.getItem(i);
+                Intent intent = new Intent(getActivity().getApplicationContext(), DetailActivity.class);
+                intent.putExtra("weo", weo);
+                startActivity(intent);
+            }
+        });
         return view;
     }
 
@@ -130,43 +148,34 @@ public class WorkExperienceFragment extends Fragment {
         public void onFragmentInteraction(Uri uri);
     }
 
-    public class WorkExpAdapter extends ExpandableListItemAdapter<Integer> {
+    public class WorkExpAdapter extends ArrayAdapter<WorkExpObject> {
         private Context mContext;
 
         public WorkExpAdapter(Context context) {
-            super(context, R.layout.workexp_element, R.id.workexp_title, R.id.workexp_content);
+            super(context, R.layout.workexp_element);
             mContext = context;
-
-            for(int i = 0; i < 2; i++) {
-                add(i);
-            }
         }
 
-
-        @NonNull
         @Override
-        public View getTitleView(int position, View convertView, ViewGroup parent) {
-            TextView tv = (TextView) convertView;
-            if (tv == null) {
-                tv = new TextView(mContext);
-            }
-            tv.setText(""+ getItem(position));
-            return tv;
+        public View getView(int position, View convertView, ViewGroup parent) {
+            WorkExpObject workExpObject = getItem(position);
+            LayoutInflater vi = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View listItemView = vi.inflate(R.layout.workexp_element, null);
+            ViewHolder viewHolder = new ViewHolder();
+            viewHolder.title = (TextView) listItemView.findViewById(R.id.title);
+            viewHolder.company = (TextView) listItemView.findViewById(R.id.company);
+            viewHolder.bg = (ImageView) listItemView.findViewById(R.id.bgImg);
+
+            viewHolder.title.setText(workExpObject.getTitle());
+            viewHolder.company.setText(workExpObject.getCompany());
+            Picasso.with(mContext).load(workExpObject.getBgResId()).into(viewHolder.bg);
+
+            return listItemView;
         }
 
-        @NonNull
-        @Override
-        public View getContentView(int position, View convertView, @NonNull ViewGroup parent) {
-            ImageView imageView = (ImageView) convertView;
-            if (imageView == null) {
-                imageView = new ImageView(mContext);
-                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            }
-
-            int imageResId = R.drawable.jason_profile;
-            imageView.setImageResource(imageResId);
-            return imageView;
+        private class ViewHolder {
+            private TextView title, company;
+            private ImageView bg;
         }
-
     }
 }
