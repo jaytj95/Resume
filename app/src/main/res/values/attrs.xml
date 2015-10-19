@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="MultiImageViewFade">
+        <attr name="img1" format="integer" />
+        <attr name="img2" format="integer" />
+        <attr name="img3" format="integer" />
+        <attr name="img4" format="integer" />
+        <attr name="img5" format="integer" />
+
+    </declare-styleable>
+</resources>
