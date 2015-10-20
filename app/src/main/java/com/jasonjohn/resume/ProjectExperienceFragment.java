@@ -24,12 +24,12 @@ import java.util.Arrays;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link WorkExperienceFragment.OnFragmentInteractionListener} interface
+ * {@link ProjectExperienceFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link WorkExperienceFragment#newInstance} factory method to
+ * Use the {@link ProjectExperienceFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class WorkExperienceFragment extends Fragment {
+public class ProjectExperienceFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -42,8 +42,8 @@ public class WorkExperienceFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
 
     private ListView listView;
-    private ArrayList<WorkExpObject> listData;
-    private WorkExpAdapter listAdapter;
+    private ArrayList<ProjExpObject> listData;
+    private ProjectExpAdapter listAdapter;
 
     /**
      * Use this factory method to create a new instance of
@@ -51,11 +51,11 @@ public class WorkExperienceFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment WorkExperienceFragment.
+     * @return A new instance of fragment ProjectExperienceFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static WorkExperienceFragment newInstance(String param1, String param2) {
-        WorkExperienceFragment fragment = new WorkExperienceFragment();
+    public static ProjectExperienceFragment newInstance(String param1, String param2) {
+        ProjectExperienceFragment fragment = new ProjectExperienceFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -63,7 +63,7 @@ public class WorkExperienceFragment extends Fragment {
         return fragment;
     }
 
-    public WorkExperienceFragment() {
+    public ProjectExperienceFragment() {
         // Required empty public constructor
     }
 
@@ -79,41 +79,31 @@ public class WorkExperienceFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_work_experience, container, false);
         listView = (ListView) view.findViewById(R.id.listview);
 
-        listAdapter = new WorkExpAdapter(getActivity().getApplicationContext());
+        listAdapter = new ProjectExpAdapter(getActivity().getApplicationContext());
 
-        int[] stringRes = new int[]{R.string.autotrader_1, R.string.autotrader_2};
-        WorkExpObject autotrader = new WorkExpObject("Test Automation Developer", "Cox AutoTrader", R.drawable.work_autotrader, stringRes);
-
-        stringRes = new int[]{R.string.ncr_1};
-        WorkExpObject ncr = new WorkExpObject("Embedded Software Engineer", "NCR Corp.", R.drawable.work_ncr, stringRes);
-
-        stringRes = new int[]{R.string.hv_1, R.string.hv_2};
-        WorkExpObject harmonicvib = new WorkExpObject("Lead Android Dev", "Harmonic Vibration LLC.", R.drawable.work_harmonicvibration, stringRes);
-
-        stringRes = new int[]{R.string.techster_1, R.string.techster_2};
-        WorkExpObject techster = new WorkExpObject("Lead Android Dev", "Techster Solutions", R.drawable.work_techster, stringRes);
-
-        stringRes = new int[]{R.string.uga_1};
-        WorkExpObject uga = new WorkExpObject("Undergraduate TA", "University of Georgia", R.drawable.work_uga, stringRes);
+        ProjExpObject beam = new ProjExpObject("Beam", "August 2015 - September 2015", R.drawable.space, R.string.beam);
+        ProjExpObject unchained = new ProjExpObject("Unchained", "September 2015 - Present", R.drawable.space, R.string.unchained);
+        ProjExpObject answerme = new ProjExpObject("AnswerMe", "Dec 2014", R.drawable.space, R.string.answerme);
+        ProjExpObject wardrobe = new ProjExpObject("Wardrobe", "Jan 2015 - Present", R.drawable.space, R.string.wardrobe);
 
         listData = new ArrayList<>();
-        listData.addAll(Arrays.asList(autotrader, harmonicvib, ncr, techster, uga));
+        listData.addAll(Arrays.asList(beam, unchained, answerme, wardrobe));
         listAdapter.addAll(listData);
         listView.setAdapter(listAdapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                WorkExpObject weo = listAdapter.getItem(i);
+                ProjExpObject peo = listAdapter.getItem(i);
                 Intent intent = new Intent(getActivity().getApplicationContext(), DetailActivity.class);
-                intent.putExtra("obj", weo);
+                intent.putExtra("obj", peo);
                 startActivity(intent);
             }
         });
+
         return view;
     }
 
@@ -156,27 +146,27 @@ public class WorkExperienceFragment extends Fragment {
         public void onFragmentInteraction(Uri uri);
     }
 
-    public class WorkExpAdapter extends ArrayAdapter<WorkExpObject> {
+    public class ProjectExpAdapter extends ArrayAdapter<ProjExpObject> {
         private Context mContext;
 
-        public WorkExpAdapter(Context context) {
+        public ProjectExpAdapter(Context context) {
             super(context, R.layout.workexp_element);
             mContext = context;
         }
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            WorkExpObject workExpObject = getItem(position);
+            ProjExpObject projExpObject = getItem(position);
             LayoutInflater vi = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View listItemView = vi.inflate(R.layout.workexp_element, null);
+            View listItemView = vi.inflate(R.layout.projexp_element, null);
             ViewHolder viewHolder = new ViewHolder();
             viewHolder.title = (TextView) listItemView.findViewById(R.id.title);
             viewHolder.company = (TextView) listItemView.findViewById(R.id.date);
             viewHolder.bg = (ImageView) listItemView.findViewById(R.id.bgImg);
 
-            viewHolder.title.setText(workExpObject.getTitle());
-            viewHolder.company.setText(workExpObject.getCompany());
-            Picasso.with(mContext).load(workExpObject.getBgResId()).into(viewHolder.bg);
+            viewHolder.title.setText(projExpObject.getTitle());
+            viewHolder.company.setText(projExpObject.getDate());
+            Picasso.with(mContext).load(projExpObject.getBgResId()).into(viewHolder.bg);
 
             return listItemView;
         }
@@ -186,4 +176,5 @@ public class WorkExperienceFragment extends Fragment {
             private ImageView bg;
         }
     }
+
 }

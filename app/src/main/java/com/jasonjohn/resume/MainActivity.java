@@ -29,13 +29,15 @@ import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 public class MainActivity extends ActionBarActivity implements
         MainFragment.OnFragmentInteractionListener,
         AboutMeFragment.OnFragmentInteractionListener,
-        WorkExperienceFragment.OnFragmentInteractionListener {
+        WorkExperienceFragment.OnFragmentInteractionListener,
+        ProjectExperienceFragment.OnFragmentInteractionListener {
 
     private Toolbar toolbar;
 
     private MainFragment mainFragment;
     private AboutMeFragment aboutMeFragment;
     private WorkExperienceFragment workExperienceFragment;
+    private ProjectExperienceFragment projectExperienceFragment;
 
     private FrameLayout fragmentHolder;
     private FragmentTransaction fragmentTransaction;
@@ -55,6 +57,7 @@ public class MainActivity extends ActionBarActivity implements
         mainFragment = new MainFragment();
         aboutMeFragment = new AboutMeFragment();
         workExperienceFragment = new WorkExperienceFragment();
+        projectExperienceFragment = new ProjectExperienceFragment();
 
         fragmentTransaction = getFragmentManager().beginTransaction();
         fragmentTransaction.replace(fragmentHolder.getId(), mainFragment);
@@ -119,6 +122,8 @@ public class MainActivity extends ActionBarActivity implements
                             case 3:
                                 fragmentTransaction(workExperienceFragment);
                                 break;
+                            case 4:
+                                fragmentTransaction(projectExperienceFragment);
 
                         }
                         return false;
