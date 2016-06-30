@@ -3,8 +3,8 @@ package com.jasonjohn.resume;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.net.Uri;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,10 +17,8 @@ import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
-import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
-import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
@@ -30,7 +28,9 @@ public class MainActivity extends ActionBarActivity implements
         MainFragment.OnFragmentInteractionListener,
         AboutMeFragment.OnFragmentInteractionListener,
         WorkExperienceFragment.OnFragmentInteractionListener,
-        ProjectExperienceFragment.OnFragmentInteractionListener {
+        ProjectExperienceFragment.OnFragmentInteractionListener,
+        EducationFragment.OnFragmentInteractionListener,
+        SkillsFragment.OnFragmentInteractionListener {
 
     private Toolbar toolbar;
 
@@ -38,6 +38,8 @@ public class MainActivity extends ActionBarActivity implements
     private AboutMeFragment aboutMeFragment;
     private WorkExperienceFragment workExperienceFragment;
     private ProjectExperienceFragment projectExperienceFragment;
+    private EducationFragment educationFragment;
+    private SkillsFragment skillsFragment;
 
     private FrameLayout fragmentHolder;
     private FragmentTransaction fragmentTransaction;
@@ -58,6 +60,8 @@ public class MainActivity extends ActionBarActivity implements
         aboutMeFragment = new AboutMeFragment();
         workExperienceFragment = new WorkExperienceFragment();
         projectExperienceFragment = new ProjectExperienceFragment();
+        educationFragment = new EducationFragment();
+        skillsFragment = new SkillsFragment();
 
         fragmentTransaction = getFragmentManager().beginTransaction();
         fragmentTransaction.replace(fragmentHolder.getId(), mainFragment);
@@ -104,9 +108,9 @@ public class MainActivity extends ActionBarActivity implements
                         skills,
                         resumePdf,
                         contactSection,
-                        new PrimaryDrawerItem().withName("Email").withIcon(GoogleMaterial.Icon.gmd_email),
-                        new PrimaryDrawerItem().withName("Phone").withIcon(GoogleMaterial.Icon.gmd_phone),
-                        new PrimaryDrawerItem().withName("GitHub").withIcon(CommunityMaterial.Icon.cmd_github_circle)
+                        new PrimaryDrawerItem().withName("Email").withIcon(GoogleMaterial.Icon.gmd_email).withIdentifier(8),
+                        new PrimaryDrawerItem().withName("Phone").withIcon(GoogleMaterial.Icon.gmd_phone).withIdentifier(9),
+                        new PrimaryDrawerItem().withName("GitHub").withIcon(CommunityMaterial.Icon.cmd_github_circle).withIdentifier(10)
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
@@ -124,6 +128,13 @@ public class MainActivity extends ActionBarActivity implements
                                 break;
                             case 4:
                                 fragmentTransaction(projectExperienceFragment);
+                                break;
+                            case 5:
+                                fragmentTransaction(educationFragment);
+                                break;
+                            case 6:
+                                fragmentTransaction(skillsFragment);
+                                break;
 
                         }
                         return false;
