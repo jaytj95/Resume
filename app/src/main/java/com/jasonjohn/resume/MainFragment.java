@@ -79,6 +79,7 @@ public class MainFragment extends Fragment {
     Drawable[] circleImages;
     Handler mHandler;
     int index = 0;
+    Runnable runnable;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -103,32 +104,35 @@ public class MainFragment extends Fragment {
 
         final int delay = 3000;
         mHandler = new Handler();
-        final Runnable runnable = new Runnable() {
+        runnable = new Runnable() {
             @Override
             public void run() {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        TransitionDrawable bgCrossFader;
-                        TransitionDrawable circleCrossFader;
-                        if(index == 3) {
-                            bgCrossFader = new TransitionDrawable(new Drawable[]{bgImages[3],bgImages[0]});
-                            circleCrossFader = new TransitionDrawable(new Drawable[]{circleImages[3],circleImages[0]});
-                        } else {
-                            bgCrossFader = new TransitionDrawable(new Drawable[]{bgImages[index],bgImages[index+1]});
-                            circleCrossFader = new TransitionDrawable(new Drawable[]{circleImages[index],circleImages[index+1]});
+                if(getActivity() != null) {
 
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            TransitionDrawable bgCrossFader;
+                            TransitionDrawable circleCrossFader;
+                            if(index == 3) {
+                                bgCrossFader = new TransitionDrawable(new Drawable[]{bgImages[3],bgImages[0]});
+                                circleCrossFader = new TransitionDrawable(new Drawable[]{circleImages[3],circleImages[0]});
+                            } else {
+                                bgCrossFader = new TransitionDrawable(new Drawable[]{bgImages[index],bgImages[index+1]});
+                                circleCrossFader = new TransitionDrawable(new Drawable[]{circleImages[index],circleImages[index+1]});
+
+                            }
+                            carouselView.setImageDrawable(bgCrossFader);
+                            profileImg.setImageDrawable(circleCrossFader);
+                            bgCrossFader.startTransition(500);
+                            circleCrossFader.startTransition(500);
+                            index++;
+                            if(index==4) index = 0;
                         }
-                        carouselView.setImageDrawable(bgCrossFader);
-                        profileImg.setImageDrawable(circleCrossFader);
-                        bgCrossFader.startTransition(500);
-                        circleCrossFader.startTransition(500);
-                        index++;
-                        if(index==4) index = 0;
-                    }
-                });
+                    });
 
-                mHandler.postDelayed(this, delay);
+                    mHandler.postDelayed(this, delay);
+                }
             }
         };
         runnable.run();
@@ -160,6 +164,12 @@ public class MainFragment extends Fragment {
             throw new ClassCastException(activity.toString()
                     + " must implement OnFragmentInteractionListener");
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mHandler = null;
     }
 
     @Override
