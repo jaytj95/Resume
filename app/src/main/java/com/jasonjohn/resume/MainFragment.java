@@ -1,12 +1,24 @@
 package com.jasonjohn.resume;
 
 import android.app.Activity;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.TransitionDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+
+import com.squareup.picasso.Picasso;
+import com.synnapps.carouselview.CarouselView;
+import com.synnapps.carouselview.ImageListener;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 
 /**
@@ -60,12 +72,77 @@ public class MainFragment extends Fragment {
         }
     }
 
+
+    private ImageView carouselView;
+    private CircleImageView profileImg;
+    Drawable[] bgImages;
+    Drawable[] circleImages;
+    Handler mHandler;
+    int index = 0;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_main, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+        profileImg = (CircleImageView) rootView.findViewById(R.id.profile_image);
+
+        carouselView = (ImageView) rootView.findViewById(R.id.carouselView);
+        carouselView.setVisibility(View.VISIBLE);
+
+
+        Resources res = getResources();
+        bgImages = new Drawable[]{res.getDrawable(R.drawable.jason_profile_blur), res.getDrawable(R.drawable.jason_profile_2_blur),res.getDrawable(R.drawable.jason_profile_3_blur),res.getDrawable(R.drawable.jason_profile_4_blur)};
+        circleImages = new Drawable[]{res.getDrawable(R.drawable.jason_profile_2), res.getDrawable(R.drawable.jason_profile_3),res.getDrawable(R.drawable.jason_profile_4),res.getDrawable(R.drawable.jason_profile)};
+        if(bgImages!= null && bgImages.length > 0) {
+            setCarousel();
+        }
+        return rootView;
     }
+
+    private void setCarousel() {
+
+        final int delay = 3000;
+        mHandler = new Handler();
+        final Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        TransitionDrawable bgCrossFader;
+                        TransitionDrawable circleCrossFader;
+                        if(index == 3) {
+                            bgCrossFader = new TransitionDrawable(new Drawable[]{bgImages[3],bgImages[0]});
+                            circleCrossFader = new TransitionDrawable(new Drawable[]{circleImages[3],circleImages[0]});
+                        } else {
+                            bgCrossFader = new TransitionDrawable(new Drawable[]{bgImages[index],bgImages[index+1]});
+                            circleCrossFader = new TransitionDrawable(new Drawable[]{circleImages[index],circleImages[index+1]});
+
+                        }
+                        carouselView.setImageDrawable(bgCrossFader);
+                        profileImg.setImageDrawable(circleCrossFader);
+                        bgCrossFader.startTransition(500);
+                        circleCrossFader.startTransition(500);
+                        index++;
+                        if(index==4) index = 0;
+                    }
+                });
+
+                mHandler.postDelayed(this, delay);
+            }
+        };
+        runnable.run();
+    }
+
+//    ImageListener imageListener = new ImageListener() {
+//        @Override
+//        public void setImageForPosition(int position, ImageView imageView) {
+//            imageView.setImageResource(bgImages[position]);
+//            Picasso.with(getActivity()).load(circleImages[position]).into(profileImg);
+//            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+//
+//        }
+//    };
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

@@ -86,7 +86,7 @@ public class WorkExperienceFragment extends Fragment {
         listAdapter = new WorkExpAdapter(getActivity().getApplicationContext());
 
         int[] stringRes = new int[]{R.string.autotrader_1, R.string.autotrader_2};
-        WorkExpObject autotrader = new WorkExpObject("Test Automation Developer", "Cox AutoTrader", R.drawable.work_autotrader, stringRes);
+        WorkExpObject autotrader = new WorkExpObject("Associate Software Engineer", "AutoTrader", R.drawable.work_autotrader, stringRes);
 
         stringRes = new int[]{R.string.ncr_1};
         WorkExpObject ncr = new WorkExpObject("Embedded Software Engineer", "NCR Corp.", R.drawable.work_ncr, stringRes);
@@ -100,8 +100,11 @@ public class WorkExperienceFragment extends Fragment {
         stringRes = new int[]{R.string.uga_1};
         WorkExpObject uga = new WorkExpObject("Undergraduate TA", "University of Georgia", R.drawable.work_uga, stringRes);
 
+        stringRes = new int[]{R.string.rappad_1, R.string.rappad_2};
+        WorkExpObject rappad = new WorkExpObject("Lead Mobile Developer", "RapPad", R.drawable.work_rappad, stringRes);
+
         listData = new ArrayList<>();
-        listData.addAll(Arrays.asList(autotrader, harmonicvib, ncr, techster, uga));
+        listData.addAll(Arrays.asList(autotrader, rappad, harmonicvib, ncr, uga));
         listAdapter.addAll(listData);
         listView.setAdapter(listAdapter);
 

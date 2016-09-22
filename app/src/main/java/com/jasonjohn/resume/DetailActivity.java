@@ -9,11 +9,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+import com.synnapps.carouselview.CarouselView;
+import com.synnapps.carouselview.ImageListener;
 
 public class DetailActivity extends Activity {
     private TextView workTitle, workCompany;
     private TextView roleHeader, roleContent1, roleContent2;
     private ImageView workPic;
+    private CarouselView carouselView;
+    int[] images;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +50,7 @@ public class DetailActivity extends Activity {
         } else {
             setContentView(R.layout.activity_detail_proj);
             ProjExpObject projExpObject = (ProjExpObject) o;
+            images = ((ProjExpObject) o).getPics();
 
             workTitle = (TextView) findViewById(R.id.title);
             workCompany = (TextView) findViewById(R.id.date);
@@ -59,6 +64,14 @@ public class DetailActivity extends Activity {
             Picasso.with(getApplicationContext()).load(projExpObject.getBgResId()).into(workPic);
             roleContent1.setText(getResources().getString(projExpObject.getAbout()));
 
+
+            carouselView = (CarouselView) findViewById(R.id.carouselView);
+            carouselView.setVisibility(View.VISIBLE);
+            if(images!= null && images.length > 0) {
+                carouselView.setPageCount(images.length);
+                carouselView.setImageListener(imageListener);
+            }
+
         }
 
 
@@ -67,4 +80,13 @@ public class DetailActivity extends Activity {
     private Spanned createBulletString(String text) {
         return Html.fromHtml("&#8226; " + text);
     }
+
+    ImageListener imageListener = new ImageListener() {
+        @Override
+        public void setImageForPosition(int position, ImageView imageView) {
+            imageView.setImageResource(images[position]);
+            imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+        }
+    };
 }

@@ -40,6 +40,7 @@ public class MainActivity extends ActionBarActivity implements
     private ProjectExperienceFragment projectExperienceFragment;
     private EducationFragment educationFragment;
     private SkillsFragment skillsFragment;
+    private PDFFragment pdfFragment;
 
     private FrameLayout fragmentHolder;
     private FragmentTransaction fragmentTransaction;
@@ -62,6 +63,7 @@ public class MainActivity extends ActionBarActivity implements
         projectExperienceFragment = new ProjectExperienceFragment();
         educationFragment = new EducationFragment();
         skillsFragment = new SkillsFragment();
+        pdfFragment = new PDFFragment();
 
         fragmentTransaction = getFragmentManager().beginTransaction();
         fragmentTransaction.replace(fragmentHolder.getId(), mainFragment);
@@ -71,7 +73,7 @@ public class MainActivity extends ActionBarActivity implements
     private void setupNavDrawer() {
         AccountHeader headerResult = new AccountHeaderBuilder()
                 .withActivity(this)
-                .withHeaderBackground(R.drawable.space)
+                .withHeaderBackground(R.drawable.space2)
                 .addProfiles(
                         new ProfileDrawerItem().withName("Jason John").withEmail("jasontjohn95@gmail.com")
                                 .withIcon(getResources().getDrawable(R.drawable.jason_profile))
@@ -134,6 +136,9 @@ public class MainActivity extends ActionBarActivity implements
                                 break;
                             case 6:
                                 fragmentTransaction(skillsFragment);
+                                break;
+                            case 7:
+                                fragmentTransaction(pdfFragment);
                                 break;
 
                         }

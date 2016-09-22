@@ -84,13 +84,14 @@ public class ProjectExperienceFragment extends Fragment {
 
         listAdapter = new ProjectExpAdapter(getActivity().getApplicationContext());
 
-        ProjExpObject beam = new ProjExpObject("Beam", "August 2015 - September 2015", R.drawable.space, R.string.beam);
-        ProjExpObject unchained = new ProjExpObject("Unchained", "September 2015 - Present", R.drawable.space, R.string.unchained);
-        ProjExpObject answerme = new ProjExpObject("AnswerMe", "Dec 2014", R.drawable.space, R.string.answerme);
-        ProjExpObject wardrobe = new ProjExpObject("Wardrobe", "Jan 2015 - Present", R.drawable.space, R.string.wardrobe);
-
+        ProjExpObject beam = new ProjExpObject("Beam", "August 2015 - September 2015", R.drawable.proj_beam, R.string.beam, new int[]{R.drawable.proj_beam_1});
+        ProjExpObject unchained = new ProjExpObject("Unchained", "September 2015 - Present", R.drawable.proj_unchained, R.string.unchained, new int[]{R.drawable.proj_unchained_1,R.drawable.proj_unchained_2});
+        ProjExpObject rappad = new ProjExpObject("RapPad", "Dec 2015 - Present", R.drawable.proj_rappad, R.string.rappad, new int[]{R.drawable.proj_rappad_1,R.drawable.proj_rappad_2,R.drawable.proj_rappad_3});
+        ProjExpObject autotrader = new ProjExpObject("Digital Order Fulfillment (DOF)", "May 2015 - July 2016", R.drawable.work_autotrader, R.string.autotrader, new int[]{});
+        ProjExpObject carspotters = new ProjExpObject("CarSpotters", "Current Project", R.drawable.proj_carspotters, R.string.carspotters, new int[]{R.drawable.proj_carspotters_2,R.drawable.proj_carspotters_1,R.drawable.proj_carspotters_3});
+        ProjExpObject rave = new ProjExpObject("Rave Music Player", "Current Project", R.drawable.proj_rave, R.string.rave, new int[]{R.drawable.proj_rave_1,R.drawable.proj_rave_2});
         listData = new ArrayList<>();
-        listData.addAll(Arrays.asList(beam, unchained, answerme, wardrobe));
+        listData.addAll(Arrays.asList(autotrader, rappad, carspotters, rave, beam, unchained));
         listAdapter.addAll(listData);
         listView.setAdapter(listAdapter);
 

@@ -12,11 +12,22 @@ public class ProjExpObject implements Parcelable {
     private int bgResId;
     private int about;
 
-    public ProjExpObject(String title, String company, int bgResId, int about) {
+    public int[] getPics() {
+        return pics;
+    }
+
+    public void setPics(int[] pics) {
+        this.pics = pics;
+    }
+
+    private int[] pics;
+
+    public ProjExpObject(String title, String company, int bgResId, int about, int[] pics) {
         setTitle(title);
         setDate(company);
         setBgResId(bgResId);
         setAbout(about);
+        setPics(pics);
     }
 
     public ProjExpObject(Parcel p) {
@@ -24,11 +35,13 @@ public class ProjExpObject implements Parcelable {
         setDate(p.readString());
         setBgResId(p.readInt());
         setAbout(p.readInt());
+        setPics(p.createIntArray());
     }
 
     public String getTitle() {
         return title;
     }
+
 
     public void setTitle(String title) {
         this.title = title;
@@ -69,6 +82,7 @@ public class ProjExpObject implements Parcelable {
         parcel.writeString(getDate());
         parcel.writeInt(getBgResId());
         parcel.writeInt(getAbout());
+        parcel.writeIntArray(getPics());
     }
 
     public static final Parcelable.Creator<ProjExpObject> CREATOR = new Parcelable.Creator<ProjExpObject>() {

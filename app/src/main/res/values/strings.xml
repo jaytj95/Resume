@@ -4,24 +4,29 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
-<!-- TODO: Remove or change this placeholder text -->
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="aboutme">
         "Hello! My name is Jason John and I\\'m an Android Developer! I started learning Java when I was in High School and I continued my education through to college. I started attending the University of Georgia and I immediately started taking Java courses. After my first Java class in college, I started to apply my Java skills through Android development!\n\nIn the Summer of 2014, I took two internships, one at NCR Corp. and another at Harmonic Vibration LLC., a startup based in Atlanta, GA. At both companies, I took roles as Android developers, taking the lead role at Harmonic Vibration. My experience at these companies laid the foundation of everything I know in Android. I continue to work at Harmonic Vibration as a lead Android dev, releasing two Android applications which I\'ve solely written under them.\n\n As for right now, I took myself out of full-time school to get a jump start in my career as a developer. I\'m working with Harmonic Vibration in my free time and working as an Associate Automation Engineer at Cox Automotive/AutoTrader in Atlanta, working on a few ideas and startups that I\'ve developed over the years, all while taking online classes part time. Quite a lot on my plate for a 19 year old, I\'d say!\n\nIt\'s been quite the ride and I\'m loving it. I\'m always looking for a challenge. I\'m a young and hungry kid looking to develop something big."
     </string>
 
-    <string name="autotrader_1">Pioneered the utilization of brand new test automation software for Salesforce applications</string>
-    <string name="autotrader_2">Automating existing regression test cases and developing automated Salesforce processes using Java within the new software</string>
-    <string name="ncr_1">Revolutionized Quality Assurance with a Testing Suite for Android-based POS devices, paried with a custom framework to create hardware tests that run unsupervised</string>
+    <string name="autotrader_1">Pioneered the utilization of brand new test automation software for Salesforce applications using Java and XML style scripts.</string>
+    <string name="autotrader_2">Developed Digital Order Fulfillment (Paperless Order Processing) using Salesforce, Apex, and DrawLoop with EchoSign.</string>
+    <string name="ncr_1">Optimized QA with a programmable automated Testing Suite for Android based POS devices, paired with a custom framework to create hardware tests that run unsupervised.</string>
     <string name="hv_1">Bringing the Beam and WaveGuide projects to Android to expand user base from solely iOS with a simpler, yet equally effective application</string>
     <string name="hv_2">Utilized various Java/Android frameworks/APIs (Foursquare, Instagram, Apache Commons HTTP) to expand the company\'s portfolio</string>
     <string name="techster_1">Planning, designing, and implementing a revolutionary iOS/Android application for a brand new start-up</string>
     <string name="techster_2">Bringing Agile development methodologies to the company, leading project planning, identifying/delegating tasks to developers, and leading team meetings</string>
     <string name="uga_1">Supervising students\' learning of Java concepts in ways that worked for the students\' growth in computer science, both personally and academically.</string>
+    <string name="rappad_1">Planning, designing, and implementing a companion iOS/Android app for RapPad.co, a website for hip-hop lovers and creators.</string>
+    <string name="rappad_2">Met API requirements and implemented various features of the RapPad website, including a freestyle rap coach, writing assistant, and local/online database for storage.</string>
 
     <string name="beam">Beam gives you a look into what\'s going at nightlife around you. Beam scores update in realtime as activity changes in and around each venue! For iOS/Android!</string>
     <string name="answerme">An app which brings a dedicated Question and Answer platform to iOS/Android, complete with text, picture, and video Q and A for users to effectively ask questions where text will just not suffice.</string>
     <string name="wardrobe">Share your style with the world! Rate other people’s wardrobes and get an opinion about your own. Perfect for the fashion-conscious!</string>
     <string name="unchained">A small project that takes in a user’s location and shows all the restaurants in that area that are not chain restaurants. This project includes a Java API and an Android app which utilizes Foursquare, Yelp, and Google Places APIs</string>
-
+    <string name="carspotters">A small project that creates a social media space for car enthusiasts. Take a picture of a car you see and share it with the world! Includes a full social media experience (users, like, comments, etc.) along with GPS support.</string>
+    <string name="rappad">Bringing the RapPad website’s features to mobile, such as the Freestyle Rap Coach and the writing/suggestion features. Multiple apps for iOS/Android with 50k+ installs!</string>
+    <string name="autotrader">Facilitated paperless contracts and agreements between AutoTrader and dealerships looking to buy advertising space on the AutoTrader.com website. DOF allows for faster contract delivery and e-signatures.</string>
+    <string name="rave">Rave is a new concept and design for the traditional music player. Gone are the days of the boring horizontal seek bars, less than stellar user interfaces, and just all around bad experiences. Rave was built from the ground up to deliver a fresh new listening and playback experience for all.</string>
 </resources>
