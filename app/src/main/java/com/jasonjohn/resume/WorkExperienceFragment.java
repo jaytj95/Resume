@@ -3,6 +3,7 @@ package com.jasonjohn.resume;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -19,6 +20,10 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import co.mobiwise.materialintro.shape.Focus;
+import co.mobiwise.materialintro.shape.FocusGravity;
+import co.mobiwise.materialintro.view.MaterialIntroView;
 
 
 /**
@@ -117,6 +122,20 @@ public class WorkExperienceFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        new MaterialIntroView.Builder(getActivity())
+                .enableDotAnimation(true)
+                .enableIcon(false)
+                .setFocusGravity(FocusGravity.CENTER)
+                .setFocusType(Focus.MINIMUM)
+                .setDelayMillis(200)
+                .enableFadeAnimation(true)
+                .performClick(true)
+                .setInfoText("Click on any card to view more details!")
+                .setTextColor(Color.WHITE)
+                .setTarget(listView)
+                .setUsageId("intro") //THIS SHOULD BE UNIQUE ID
+                .show();
         return view;
     }
 

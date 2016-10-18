@@ -2,6 +2,7 @@ package com.jasonjohn.resume;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -10,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.mikepenz.community_material_typeface_library.CommunityMaterial;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
@@ -32,6 +34,12 @@ public class MainActivity extends ActionBarActivity implements
         EducationFragment.OnFragmentInteractionListener,
         SkillsFragment.OnFragmentInteractionListener {
 
+
+    public static final String URL_GITHUB = "https://github.com/jaytj95";
+    public static final String URL_LINKEDIN = "https://www.linkedin.com/in/jasonjohn95";
+    public static final String URL_EMAIL = "jasontjohn95@gmail.com";
+    public static final String PHONE = "tel:7704032529";
+
     private Toolbar toolbar;
 
     private MainFragment mainFragment;
@@ -44,6 +52,7 @@ public class MainActivity extends ActionBarActivity implements
 
     private FrameLayout fragmentHolder;
     private FragmentTransaction fragmentTransaction;
+    private Drawer drawerPane;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,13 +79,20 @@ public class MainActivity extends ActionBarActivity implements
         fragmentTransaction.commit();
     }
 
+    public void toggleDrawer() {
+        if(!drawerPane.isDrawerOpen()) {
+            drawerPane.openDrawer();
+        } else {
+            drawerPane.closeDrawer();
+        }
+    }
     private void setupNavDrawer() {
         AccountHeader headerResult = new AccountHeaderBuilder()
                 .withActivity(this)
                 .withHeaderBackground(R.drawable.space2)
                 .addProfiles(
                         new ProfileDrawerItem().withName("Jason John").withEmail("jasontjohn95@gmail.com")
-                                .withIcon(getResources().getDrawable(R.drawable.jason_profile))
+                                .withIcon(getResources().getDrawable(R.drawable.jason_profile_2))
                 )
                 .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
                     @Override
@@ -88,7 +104,7 @@ public class MainActivity extends ActionBarActivity implements
 
         PrimaryDrawerItem main = new PrimaryDrawerItem().withName("Home").withIdentifier(1).withIcon(GoogleMaterial.Icon.gmd_home);
         PrimaryDrawerItem aboutMe = new PrimaryDrawerItem().withName("About Me").withIdentifier(2).withIcon(GoogleMaterial.Icon.gmd_person);
-        final PrimaryDrawerItem workExperience = new PrimaryDrawerItem().withName("Work Experience").withIdentifier(3).withIcon(GoogleMaterial.Icon.gmd_star);
+        final PrimaryDrawerItem workExperience = new PrimaryDrawerItem().withName("Work Experience").withIdentifier(3).withIcon(GoogleMaterial.Icon.gmd_work);
         PrimaryDrawerItem projectExperience = new PrimaryDrawerItem().withName("Project Experience").withIdentifier(4).withIcon(CommunityMaterial.Icon.cmd_settings_box);
         PrimaryDrawerItem education = new PrimaryDrawerItem().withName("Education").withIdentifier(5).withIcon(CommunityMaterial.Icon.cmd_school);
         PrimaryDrawerItem skills = new PrimaryDrawerItem().withName("Skills").withIdentifier(6).withIcon(CommunityMaterial.Icon.cmd_lightbulb);
@@ -96,8 +112,8 @@ public class MainActivity extends ActionBarActivity implements
 
         SectionDrawerItem resumeSection = new SectionDrawerItem().withName("Jason John's Resume");
         SectionDrawerItem contactSection = new SectionDrawerItem().withName("Contact Me");
-        //create the drawer and remember the `Drawer` result object
-        Drawer result = new DrawerBuilder()
+        //create the drawer and remember the `Drawer` drawerPane object
+        drawerPane = new DrawerBuilder()
                 .withActivity(this)
                 .withToolbar(toolbar)
                 .addDrawerItems(
@@ -110,15 +126,16 @@ public class MainActivity extends ActionBarActivity implements
                         skills,
                         resumePdf,
                         contactSection,
-                        new PrimaryDrawerItem().withName("Email").withIcon(GoogleMaterial.Icon.gmd_email).withIdentifier(8),
-                        new PrimaryDrawerItem().withName("Phone").withIcon(GoogleMaterial.Icon.gmd_phone).withIdentifier(9),
-                        new PrimaryDrawerItem().withName("GitHub").withIcon(CommunityMaterial.Icon.cmd_github_circle).withIdentifier(10)
+                        new PrimaryDrawerItem().withName("Phone").withIcon(GoogleMaterial.Icon.gmd_phone).withIdentifier(8),
+                        new PrimaryDrawerItem().withName("Email").withIcon(GoogleMaterial.Icon.gmd_email).withIdentifier(9),
+                        new PrimaryDrawerItem().withName("LinkedIn").withIcon(CommunityMaterial.Icon.cmd_linkedin_box).withIdentifier(10),
+                        new PrimaryDrawerItem().withName("GitHub").withIcon(CommunityMaterial.Icon.cmd_github_circle).withIdentifier(11)
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                         int id = drawerItem.getIdentifier();
-                        switch(id) {
+                        switch (id) {
                             case 1:
                                 fragmentTransaction(mainFragment);
                                 break;
@@ -140,6 +157,19 @@ public class MainActivity extends ActionBarActivity implements
                             case 7:
                                 fragmentTransaction(pdfFragment);
                                 break;
+                            case 8:
+                                handleContactSelection(8, PHONE);
+                                break;
+                            case 9:
+                                handleContactSelection(9, URL_EMAIL);
+                                break;
+                            case 10:
+                                handleContactSelection(10, URL_LINKEDIN);
+                                break;
+                            case 11:
+                                handleContactSelection(11, URL_GITHUB);
+                                break;
+
 
                         }
                         return false;
@@ -153,6 +183,36 @@ public class MainActivity extends ActionBarActivity implements
         fragmentTransaction = getFragmentManager().beginTransaction();
         fragmentTransaction.replace(fragmentHolder.getId(), frag);
         fragmentTransaction.commit();
+    }
+
+    public void handleContactSelection(int sel, String url) {
+        switch(sel) {
+            case 8:
+                Intent phoneIntent = new Intent(Intent.ACTION_DIAL);
+                phoneIntent.setData(Uri.parse(url));
+                startActivity(phoneIntent);
+                break;
+            case 9:
+                Intent i = new Intent(Intent.ACTION_SEND);
+                i.setType("message/rfc822");
+                i.putExtra(Intent.EXTRA_EMAIL  , new String[]{url});
+                i.putExtra(Intent.EXTRA_SUBJECT, "Hello from Material Resume!");
+                i.putExtra(Intent.EXTRA_TEXT, "Say something nice...");
+                try {
+                    startActivity(Intent.createChooser(i, "Send mail..."));
+                } catch (android.content.ActivityNotFoundException ex) {
+                    Toast.makeText(this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case 10:
+            case 11: {
+                Intent webIntent = new Intent(Intent.ACTION_VIEW);
+                webIntent.setData(Uri.parse(url));
+                startActivity(webIntent);
+                break;
+            }
+
+        }
     }
 
     @Override

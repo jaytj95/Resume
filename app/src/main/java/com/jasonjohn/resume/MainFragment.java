@@ -97,6 +97,13 @@ public class MainFragment extends Fragment {
         if(bgImages!= null && bgImages.length > 0) {
             setCarousel();
         }
+
+        profileImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity)getActivity()).toggleDrawer();
+            }
+        });
         return rootView;
     }
 

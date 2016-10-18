@@ -66,8 +66,8 @@ public class DetailActivity extends Activity {
 
 
             carouselView = (CarouselView) findViewById(R.id.carouselView);
-            carouselView.setVisibility(View.VISIBLE);
             if(images!= null && images.length > 0) {
+                carouselView.setVisibility(View.VISIBLE);
                 carouselView.setPageCount(images.length);
                 carouselView.setImageListener(imageListener);
             }

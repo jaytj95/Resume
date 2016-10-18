@@ -2,11 +2,50 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
     tools:context="com.jasonjohn.resume.PDFFragment">
 
     <com.github.barteksc.pdfviewer.PDFView
         android:id="@+id/pdfView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+
+    <com.github.clans.fab.FloatingActionMenu
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        fab:fab_colorNormal="@color/ColorPrimary"
+        fab:fab_colorPressed="@color/ColorPrimaryDark"
+        fab:fab_colorRipple="@color/ColorPrimary"
+        android:layout_margin="16dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/download_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_colorNormal="@color/ColorPrimary"
+            fab:fab_colorPressed="@color/ColorPrimaryDark"
+            fab:fab_colorRipple="@color/ColorPrimary"
+            fab:fab_label="Download Resume"
+            android:layout_margin="16dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/email_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_colorNormal="@color/ColorPrimary"
+            fab:fab_colorPressed="@color/ColorPrimaryDark"
+            fab:fab_colorRipple="@color/ColorPrimary"
+            fab:fab_label="Send Resume"
+            android:layout_margin="16dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+    </com.github.clans.fab.FloatingActionMenu>
 
 </RelativeLayout>
